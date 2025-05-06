@@ -35,8 +35,6 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char			*ft_itoa_int(int n);
-char			*ft_itoa_unsigned(unsigned int n);
 void			ft_bzero(void *s, size_t n);
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 void			ft_putchar_fd(char c, int fd);
