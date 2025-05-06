@@ -53,7 +53,7 @@ char *ft_hexl(va_list args)
 	int *i;
 
 	receiver = va_arg(args, int);
-	temp = (char *)ft_calloc(len_hex(receiver) + 3);
+	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
 	if(!temp)
 		return (NULL);
 	temp[0] = '0';
@@ -71,7 +71,7 @@ char *ft_hexu(va_list args)
 	int *i;
 	
 	receiver = va_arg(args, int);
-	temp = (char *)ft_calloc(len_hex(receiver) + 3);
+	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
 	if(!temp)
 		return (NULL);
 	temp[0] = '0';

@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 13:09:00 by fzhang            #+#    #+#             */
-/*   Updated: 2025/04/23 13:09:02 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/23 10:38:22 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/23 10:38:24 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*copy;
-
-	if (nmemb * size > 0 && (nmemb * size / size != nmemb))
-		return (NULL);
-	copy = (void *)malloc(nmemb * size);
-	if (!copy)
-		return (NULL);
-	ft_bzero(copy, nmemb * size);
-	return (copy);
+	(ft_memset(s, '\0', n));
 }
+// int main()
 // {
-// 	char *temp = ft_calloc(2,1);
+// 	char temp[50];
+// 	ft_bzero(temp, 50);
 // 	int check;
-// 	check = 1;
-// 	for(int i = 0; i < 2; i++)
+// 	for(int count = 0; count < 50; count++)
 // 	{
-// 		check = (int)temp[i];
+// 		check = (int)temp[count];
 // 	}
 // }

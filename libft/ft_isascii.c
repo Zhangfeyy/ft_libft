@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pointer.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzhang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 21:51:16 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/05 21:51:19 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/23 09:59:58 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/23 09:59:59 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-
-char *ft_void(va_list args)
+int	ft_isascii(int c)
 {
-	char *temp;
-	//type conversion
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pointer.c                                       :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzhang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 21:51:16 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/05 21:51:19 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/23 09:39:36 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/23 09:39:52 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-
-char *ft_void(va_list args)
+int	ft_isalpha(int c)
 {
-	char *temp;
-	//type conversion
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	else if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
 }

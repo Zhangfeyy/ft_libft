@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pointer.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzhang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 21:51:16 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/05 21:51:19 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/23 12:25:02 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/23 12:25:04 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-
-char *ft_void(va_list args)
+int	ft_toupper(int c)
 {
-	char *temp;
-	//type conversion
+	if (c >= 'a' && c <= 'z')
+		return (c + ('A' - 'a'));
+	return (c);
 }

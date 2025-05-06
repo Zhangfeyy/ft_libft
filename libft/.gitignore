@@ -1,0 +1,6 @@
+*.o
+.devcontainer/*
+Tester/*
+*.txt
+*.log
+*.a

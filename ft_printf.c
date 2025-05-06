@@ -38,7 +38,9 @@ static char	*check(char *string, va_list args)
 	}
 	else if(*string)
 	{
-		temp = (char *)ft_calloc(2);
+		temp = (char *)ft_calloc(2, 1);
+		if(!temp)
+			return(NULL);
 		temp[0] = *string;
 		return (temp);
 	}
@@ -63,18 +65,10 @@ static char	*specify(char *string, va_list args)
 		return (ft_hexl(args));
 	if(*string == 'X')
 		return (ft_hexu(args));
-	temp = (char *)ft_calloc(3);
+	temp = (char *)ft_calloc(3, 1);
 	if(!temp)
 		return (NULL);
 	temp[0] = '%';
 	temp[1] = *string;
 	return (temp);
-}
-
-
-// 18:00
-char *ft_void(va_list args)
-{
-	char *temp;
-	//type conversion
 }

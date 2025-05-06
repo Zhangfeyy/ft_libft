@@ -15,7 +15,7 @@ char *ft_character(va_list args)
 {
 	char *temp;
 
-	temp = (char *)ft_calloc(2);
+	temp = (char *)ft_calloc(2, 1);
 	if(!temp)
 		return (NULL);
 	temp[0] = va_arg(args, char);

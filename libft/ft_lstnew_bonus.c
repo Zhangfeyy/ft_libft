@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 13:09:00 by fzhang            #+#    #+#             */
-/*   Updated: 2025/04/23 13:09:02 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/30 20:12:11 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/30 20:12:12 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+t_list	*ft_lstnew(void *content)
 {
-	unsigned char	*copy;
+	t_list	*node;
 
-	if (nmemb * size > 0 && (nmemb * size / size != nmemb))
+	node = (t_list *)malloc(sizeof(t_list));
+	if (!node)
 		return (NULL);
-	copy = (void *)malloc(nmemb * size);
-	if (!copy)
-		return (NULL);
-	ft_bzero(copy, nmemb * size);
-	return (copy);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }
-// {
-// 	char *temp = ft_calloc(2,1);
-// 	int check;
-// 	check = 1;
-// 	for(int i = 0; i < 2; i++)
-// 	{
-// 		check = (int)temp[i];
-// 	}
-// }

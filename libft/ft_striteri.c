@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pointer.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzhang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 21:51:16 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/05 21:51:19 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/28 16:19:52 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/28 16:19:55 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-
-char *ft_void(va_list args)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	char *temp;
-	//type conversion
+	unsigned int	n;
+
+	n = 0;
+	while (s[n])
+	{
+		f(n, &s[n]);
+		n++;
+	}
 }

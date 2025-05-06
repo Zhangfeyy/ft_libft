@@ -64,7 +64,7 @@ static void	convert(int n, char *str, int *i)
 	}
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_int(int n)
 {
 	char	*str;
 	int		i;
@@ -87,9 +87,17 @@ char	*ft_itoa(int n)
 	str[i] = '\0';
 	return (str);
 }
-// int main()
-// {
-// 	char *temp =ft_itoa(-104357);
-// 	int check = (int)temp[1];//48
-// 	check++;
-// }
+
+char	*ft_itoa_unsigned(unsigned int n)
+{
+	char	*str;
+	unsigned int		i;
+
+	str = (char *)malloc((get_len(n) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	convert(n, str, &i);
+	str[i] = '\0';
+	return (str);
+}

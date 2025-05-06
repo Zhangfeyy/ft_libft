@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pointer.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzhang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 21:51:16 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/05 21:51:19 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/23 10:02:00 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/23 10:02:02 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-
-char *ft_void(va_list args)
+int	ft_isprint(int c)
 {
-	char *temp;
-	//type conversion
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
 }

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fzhang <fzhang@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 13:09:00 by fzhang            #+#    #+#             */
-/*   Updated: 2025/04/23 13:09:02 by fzhang           ###   ########.fr       */
+/*   Created: 2025/04/28 16:31:08 by fzhang            #+#    #+#             */
+/*   Updated: 2025/04/28 16:31:10 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned char	*copy;
+	unsigned int	n;
+	char			*ns;
 
-	if (nmemb * size > 0 && (nmemb * size / size != nmemb))
+	ns = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
+	if (!ns)
 		return (NULL);
-	copy = (void *)malloc(nmemb * size);
-	if (!copy)
-		return (NULL);
-	ft_bzero(copy, nmemb * size);
-	return (copy);
+	n = 0;
+	while (s[n])
+	{
+		ns[n] = f(n, s[n]);
+		n++;
+	}
+	if (n == 0)
+		ns[n] = f(n, s[n]);
+	else
+		ns[n] = '\0';
+	return (ns);
 }
-// {
-// 	char *temp = ft_calloc(2,1);
-// 	int check;
-// 	check = 1;
-// 	for(int i = 0; i < 2; i++)
-// 	{
-// 		check = (int)temp[i];
-// 	}
-// }
