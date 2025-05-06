@@ -31,7 +31,7 @@ static char	*str_limit(void)
 	return (ns);
 }
 
-static int	get_len(int n)
+static int	get_len_int(int n)
 {
 	int	i;
 
@@ -41,6 +41,19 @@ static int	get_len(int n)
 		n = -n;
 		i++;
 	}
+	while (n / 10 != 0)
+	{
+		i++;
+		n = n / 10;
+	}
+	return (i);
+}
+
+static unsigned int	get_len_unsigned(unsigned int n)
+{
+	unsigned int	i;
+
+	i = 1;
 	while (n / 10 != 0)
 	{
 		i++;
@@ -73,7 +86,7 @@ char	*ft_itoa_int(int n)
 	{
 		return (str_limit());
 	}
-	str = (char *)malloc((get_len(n) + 1) * sizeof(char));
+	str = (char *)malloc((get_len_int(n) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -93,7 +106,7 @@ char	*ft_itoa_unsigned(unsigned int n)
 	char	*str;
 	unsigned int		i;
 
-	str = (char *)malloc((get_len(n) + 1) * sizeof(char));
+	str = (char *)malloc((get_len_unsigned(n) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;

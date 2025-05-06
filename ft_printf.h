@@ -2,6 +2,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <stdint.h>
 # include "libft.h"
 
 char *ft_decimal(va_list args);

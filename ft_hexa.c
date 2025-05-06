@@ -33,10 +33,12 @@ static char select_base(int num)
 	return('0' + num);
 }
 
-static int len_hex(int receiver)
+static size_t len_hex(int receiver)
 {
-	int size;
-	int temp = receiver;
+	size_t size;
+	int temp;
+
+	temp = receiver;
 	size = 1;
 	while(temp/16 != 0)
 	{

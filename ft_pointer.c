@@ -13,6 +13,9 @@
 
 char *ft_void(va_list args)
 {
+	uintptr_t add;
 	char *temp;
-	//type conversion
+
+	add = (uintptr_t)va_arg(args, void *);
+	
 }
