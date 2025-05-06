@@ -77,6 +77,8 @@ char *ft_character(va_list args)
 	char *temp;
 
 	temp = (char *)ft_calloc(2);
+	if(!temp)
+		return (NULL);
 	temp[0] = va_arg(args, char);
 	return (temp);
 }
@@ -87,23 +89,8 @@ char *ft_string(va_list args)
 	temp = va_arg(args, char *);//will the value change with the args?
 	return (temp);
 }
-
+// 18:00
 char *ft_void(va_list args)
-{
-	char *temp;
-	//type conversion
-}
-
-//16:00
-
-char *ft_decimal(va_list args)
-{
-	char *temp;
-	
-
-}
-
-char *ft_unsigned(va_list args)
 {
 	char *temp;
 	//type conversion
@@ -111,14 +98,81 @@ char *ft_unsigned(va_list args)
 
 //17:00
 
+char *ft_decimal(va_list args)
+{
+	char *temp;
+
+	temp = ft_itoa_int(va_arg(args, int));
+	return (temp);
+}
+
+char *ft_unsigned(va_list args)
+{
+	char *temp;
+	temp = ft_itoa_unsigned(va_arg(args, unsigned int));
+	return (temp);
+}
+
 char *ft_hexl(va_list args)
 {
 	char *temp;
-	//type conversion
+	int receiver;
+	int *i;
+
+	receiver = va_arg(args, int);
+	temp = (char *)ft_calloc(len_hex(receiver) + 3);
+	if(!temp)
+		return (NULL);
+	temp[0] = '0';
+	temp[1] = 'x';
+	*i = 2;
+	convert_base(receiver, list_l, temp, i);
+	return (temp);
 }
 
+//only digital parts
 char *ft_hexu(va_list args)
 {
 	char *temp;
-	//type conversion
+	int receiver;
+	int *i;
+
+	receiver = va_arg(args, int);
+	temp = (char *)ft_calloc(len_hex(receiver) + 3);
+	if(!temp)
+		return (NULL);
+	temp[0] = '0';
+	temp[1] = 'x';
+	*i = 2;
+	convert_base(receiver, list_u, temp, i);
+	return (temp);
+
+}
+
+char *convert_base(int receiver, char *list, char *temp, int *i)
+{
+	if(receiver/16 == 0)
+	{
+		temp[*i] = list[receiver % 16 + 1];
+		*i++;
+	}
+	else
+	{
+		convert_base(receiver / 16, list, temp, i);
+		temp[*i] = list[receiver % 16 + 1];
+		*i++;
+	}
+}
+
+int len_hex(int receiver)
+{
+	int size;
+	int temp = receiver;
+	size = 1;
+	while(temp/16 != 0)
+	{
+		size++;
+		temp = temp / 16;
+	}
+	return (size);
 }
