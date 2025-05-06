@@ -12,6 +12,7 @@ char *ft_hexu(va_list args);
 char *ft_character(va_list args);
 char *ft_string(va_list args);
 int	ft_printf(const char *string, ...);
+char *ft_void(va_list args);
 
 
 #endif

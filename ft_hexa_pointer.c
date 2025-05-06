@@ -82,3 +82,22 @@ char *ft_hexu(va_list args)
 	convert_base(receiver, temp, i);
 	return (temp);
 }
+
+char *ft_void(va_list args)
+{
+	uintptr_t add;
+	char *temp;
+	int *i;
+
+	add = (uintptr_t)va_arg(args, void *);
+	
+	temp = (char *)ft_calloc(len_hex(add) + 3, 1);
+	if(!temp)
+		return (NULL);
+	temp[0] = '0';
+	temp[1] = 'x';
+	*i = 2;
+	convert_base(add, temp, i);
+	return (temp);
+	
+}
