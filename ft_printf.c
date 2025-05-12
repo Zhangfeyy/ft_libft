@@ -20,7 +20,7 @@ int	ft_printf(const char *string, ...)
 	while(*string)
 	{
 		temp = check(*string, args);
-		write(1, &temp, 1);
+		write(1, &temp, ft_strlen(temp));
 		string++;
 	}
 	va_end(args);
@@ -30,6 +30,7 @@ int	ft_printf(const char *string, ...)
 static char	*check(char *string, va_list args)
 {
 	char *temp;
+
 	if(*string == '%')
 	{
 		string++;
