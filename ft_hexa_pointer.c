@@ -11,24 +11,26 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-static char select_base(int num)
+static char select_base(int num, int mark)
 {
-	if(num > 9)
-		return('a' + (num- 10));
+	if(num > 9 && mark == 1)
+		return('a' + (num - 10));
+	else if(num > 9 && mark == 2)
+		return('A' + (num - 10));
 	return('0' + num);
 }
 
-static void	convert_base(int receiver, char *temp, int *i)
+static void	convert_base(int receiver, char *temp, int *i, int mark)
 {
 	if(receiver/16 == 0)
 	{
-		temp[*i] = select_base(receiver % 16);
+		temp[*i] = select_base(receiver % 16, mark);
 		(*i)++;
 	}
 	else
 	{
-		convert_base(receiver / 16, temp, i);
-		temp[*i] = select_base(receiver % 16);
+		convert_base(receiver / 16, temp, i, mark);
+		temp[*i] = select_base(receiver % 16, mark);
 		(*i)++;
 	}
 }
@@ -62,7 +64,7 @@ char *ft_hexl(va_list args)
 	temp[0] = '0';
 	temp[1] = 'x';
 	*il = 2;
-	convert_base(receiver, temp, il);
+	convert_base(receiver, temp, il, 1);
 	return (temp);
 }
 
@@ -82,7 +84,7 @@ char *ft_hexu(va_list args)
 	temp[0] = '0';
 	temp[1] = 'X';
 	*iu = 2;
-	convert_base(receiver, temp, iu);
+	convert_base(receiver, temp, iu, 2);
 	return (temp);
 }
 
@@ -101,7 +103,7 @@ char *ft_void(va_list args)
 	temp[0] = '0';
 	temp[1] = 'x';
 	*i = 2;
-	convert_base(add, temp, i);
+	convert_base(add, temp, i, 1);
 	return (temp);
 	
 }

@@ -17,46 +17,51 @@ static char	*specify(const char *string, va_list args)
 
 	if(*string == 'c')
 		return (ft_character(args));
-	if(*string == 's')
+	else if(*string == 's')
 		return (ft_string(args));
-	if(*string == 'p')
+	else if(*string == 'p')
 		return (ft_void(args));
-	if(*string == 'd' || *string =='i')
+	else if(*string == 'd' || *string =='i')
 		return (ft_decimal(args));
-	if(*string == 'u')
+	else if(*string == 'u')
 		return (ft_unsigned(args));
-	if(*string == 'x')
+	else if(*string == 'x')
 		return (ft_hexl(args));
-	if(*string == 'X')
+	else if(*string == 'X')
 		return (ft_hexu(args));
-	temp = (char *)ft_calloc(3, 1);
-	if(!temp)
+	else if(*string == '\0')
 		return (NULL);
-	temp[0] = '%';
-	temp[1] = *string;
-	return (temp);
+	else
+	{
+		temp = (char *)ft_calloc(3, 1);
+		// if(!temp)
+		// 	return (NULL);
+		temp[0] = '%';
+		temp[1] = *string;
+		return (temp);
+	}
 }
 
 // check the derected specifer, and keep the other ones
-static char	*check(const char *string, va_list args)
+static char	*check(const char **string, va_list args)
 {
 	char *temp;
 
-	if(*string == '%')
+	if(**string == '%')
 	{
-		string++;
-		if(*string)
-			return (specify(string, args));
+		(*string)++;
+		temp = specify(*string, args);
 	}
-	else if(*string)
+	//if is true, else if will still be checked
+	else
 	{
 		temp = (char *)ft_calloc(2, 1);
 		if(!temp)
 			return(NULL);
-		temp[0] = *string;
+		temp[0] = **string;
 		return (temp);
 	}
-	return (NULL);
+	return(temp);
 }
 
 int	ft_printf(const char *string, ...)
@@ -64,15 +69,28 @@ int	ft_printf(const char *string, ...)
 	va_list args;
 	va_start(args, string);
 	char *temp;
+	int	count;
 
+	count = 0;
 	while(*string)
 	{
-		temp = check(string, args);
-		if(!temp)
-			return(1);
-		write(1, temp, ft_strlen((const char *)temp));
-		string++;
+		temp = check(&string, args);
+		if(temp)
+		{
+			write(1, temp, ft_strlen((const char *)temp));
+			count += ft_strlen((const char *)temp);
+			string++;
+		}
 	}
+	free(temp);
 	va_end(args);
-	return(0);
+	return(count);
 }
+//Mistake Note
+// I directly used string++ in check*(), however, i only passed the string by value, i cannot /
+// change the value of the string itself. So i can only operate the subvalue of a variable/
+// in functions.
+// In C, ownership here means who can modify the value of the pointer 
+// and how it is passed around. It does not refer to the "main function" 
+// but rather to where the variable is declared and how it's passed between functions.
+// So printf actually operates the string
