@@ -18,7 +18,7 @@ char *ft_character(va_list args)
 	temp = (char *)ft_calloc(2, 1);
 	if(!temp)
 		return (NULL);
-	temp[0] = va_arg(args, char);
+	temp[0] = (char)va_arg(args, int);//Use int due to default argument promotion
 	return (temp);
 }
 

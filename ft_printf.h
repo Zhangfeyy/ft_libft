@@ -3,10 +3,7 @@
 
 # include <stdarg.h>
 # include <stdint.h>
-# include "libft.h"
-
-
-typedef struct 
+# include "./libft/libft.h"
 
 char *ft_decimal(va_list args);
 char *ft_unsigned(va_list args);

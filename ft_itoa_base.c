@@ -9,7 +9,7 @@
 /*   Updated: 2025/04/23 21:40:20 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "ft_printf.h"
 
 static char	*str_limit(void)
 {
@@ -62,7 +62,7 @@ static unsigned int	get_len_unsigned(unsigned int n)
 	return (i);
 }
 
-static void	convert(int n, char *str, int *i)
+static void	convert(int n, char *str, unsigned int *i)
 {
 	if (n / 10 != 0)
 	{
@@ -80,7 +80,7 @@ static void	convert(int n, char *str, int *i)
 char	*ft_itoa_int(int n)
 {
 	char	*str;
-	int		i;
+	unsigned int		i;
 
 	if (n == -2147483648)
 	{

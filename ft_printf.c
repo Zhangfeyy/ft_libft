@@ -11,44 +11,7 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_printf(const char *string, ...)
-{
-	va_list args;
-	va_start(args, string);
-	char temp;
-
-	while(*string)
-	{
-		temp = check(*string, args);
-		write(1, &temp, ft_strlen(temp));
-		string++;
-	}
-	va_end(args);
-}
-
-// check the derected specifer, and keep the other ones
-static char	*check(char *string, va_list args)
-{
-	char *temp;
-
-	if(*string == '%')
-	{
-		string++;
-		if(*string)
-			return (specify(string, args));
-	}
-	else if(*string)
-	{
-		temp = (char *)ft_calloc(2, 1);
-		if(!temp)
-			return(NULL);
-		temp[0] = *string;
-		return (temp);
-	}
-	return ('\0');
-}
-
-static char	*specify(char *string, va_list args)
+static char	*specify(const char *string, va_list args)
 {
 	char *temp;
 
@@ -72,4 +35,44 @@ static char	*specify(char *string, va_list args)
 	temp[0] = '%';
 	temp[1] = *string;
 	return (temp);
+}
+
+// check the derected specifer, and keep the other ones
+static char	*check(const char *string, va_list args)
+{
+	char *temp;
+
+	if(*string == '%')
+	{
+		string++;
+		if(*string)
+			return (specify(string, args));
+	}
+	else if(*string)
+	{
+		temp = (char *)ft_calloc(2, 1);
+		if(!temp)
+			return(NULL);
+		temp[0] = *string;
+		return (temp);
+	}
+	return (NULL);
+}
+
+int	ft_printf(const char *string, ...)
+{
+	va_list args;
+	va_start(args, string);
+	char *temp;
+
+	while(*string)
+	{
+		temp = check(string, args);
+		if(!temp)
+			return(1);
+		write(1, temp, ft_strlen((const char *)temp));
+		string++;
+	}
+	va_end(args);
+	return(0);
 }

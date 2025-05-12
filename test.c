@@ -1,9 +1,6 @@
-#include <stdio.h>
+#include "ft_printf.h"
+
 int main()
 {
-	// printf("%d, %s", "test", 12); //Seg Fault
-	// printf("%");//NULL
-	// printf("rty%d");//rty2036896(garbage)
-	// printf("%o");//rty2036896(garbage)
-	printf("%d",   45600876);//itoa
+	ft_printf("%d, %s", 12, "adfhjfkdl");
 }

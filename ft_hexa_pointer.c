@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-static char *convert_base(int receiver, char *temp, int *i)
-{
-	if(receiver/16 == 0)
-	{
-		temp[*i] = select_base(receiver % 16);
-		*i++;
-	}
-	else
-	{
-		convert_base(receiver / 16, temp, i);
-		temp[*i] = select_base(receiver % 16);
-		*i++;
-	}
-}
-
 static char select_base(int num)
 {
 	if(num > 9)
@@ -33,6 +18,20 @@ static char select_base(int num)
 	return('0' + num);
 }
 
+static void	convert_base(int receiver, char *temp, int *i)
+{
+	if(receiver/16 == 0)
+	{
+		temp[*i] = select_base(receiver % 16);
+		(*i)++;
+	}
+	else
+	{
+		convert_base(receiver / 16, temp, i);
+		temp[*i] = select_base(receiver % 16);
+		(*i)++;
+	}
+}
 static size_t len_hex(int receiver)
 {
 	size_t size;
@@ -52,16 +51,18 @@ char *ft_hexl(va_list args)
 {
 	char *temp;
 	int receiver;
-	int *i;
+	int *il;
 
+	if(!(il = (int *)ft_calloc(1, sizeof(int))))
+		return (NULL);
 	receiver = va_arg(args, int);
 	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
 	if(!temp)
 		return (NULL);
 	temp[0] = '0';
 	temp[1] = 'x';
-	*i = 2;
-	convert_base(receiver, temp, i);
+	*il = 2;
+	convert_base(receiver, temp, il);
 	return (temp);
 }
 
@@ -70,16 +71,18 @@ char *ft_hexu(va_list args)
 {
 	char *temp;
 	int receiver;
-	int *i;
+	int *iu;
 	
+	if(!(iu = (int *)ft_calloc(1, sizeof(int))))
+		return (NULL);
 	receiver = va_arg(args, int);
 	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
 	if(!temp)
 		return (NULL);
 	temp[0] = '0';
 	temp[1] = 'X';
-	*i = 2;
-	convert_base(receiver, temp, i);
+	*iu = 2;
+	convert_base(receiver, temp, iu);
 	return (temp);
 }
 
@@ -89,8 +92,9 @@ char *ft_void(va_list args)
 	char *temp;
 	int *i;
 
+	if(!(i = (int *)ft_calloc(1, sizeof(int))))
+		return (NULL);
 	add = (uintptr_t)va_arg(args, void *);
-	
 	temp = (char *)ft_calloc(len_hex(add) + 3, 1);
 	if(!temp)
 		return (NULL);
@@ -101,3 +105,5 @@ char *ft_void(va_list args)
 	return (temp);
 	
 }
+//NOTE
+//All the pointers need memory allocations
