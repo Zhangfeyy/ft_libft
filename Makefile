@@ -5,33 +5,39 @@ SRCS = \
 	src/ft_hexa_pointer.c \
 	src/ft_itoa_base.c 
 
-OBJS = $(SRCS:src/%.c=$(BUILD_DIR)/%.o)
 BUILD_DIR = build
+OBJ_DIR = $(BUILD_DIR)/obj
+TMP_DIR = $(BUILD_DIR)/tmp
+
+OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
 AR = ar rcs
 RM = rm -f
 
-# -I to look for header files in the dic path passed via I
 CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilib/libft
 NAME = libftprintf.a
 
-# default target when you use "make"
+# Default target
 all: libft $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $@ $^
+# Build the final static library, including libft object files
+$(NAME): $(OBJS) | $(TMP_DIR)
+	cp lib/libft/libft.a $(TMP_DIR)/libft.a
+	cd $(TMP_DIR) && ar x libft.a
+	$(AR) $@ $^ $(TMP_DIR)/*.o
 
-# create dictionaries as needed
-$(BUILD_DIR):
-	 mkdir -p $(BUILD_DIR)
+# Create build directories as needed
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-# $< refers to the input file (the .c file)
-# and $@ refers to the output file (the .o file).
-# CREATE A BUILD dictionary if it doesnt exit by order only dependency pipeline
+$(TMP_DIR):
+	mkdir -p $(TMP_DIR)
 
-$(BUILD_DIR)/%.o: src/%.c | $(BUILD_DIR)
+# Compile each source file into the build/obj directory
+$(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
 	$(MAKE) -C lib/libft fclean
 	$(RM) -r $(BUILD_DIR)
@@ -41,13 +47,7 @@ fclean: clean
 
 re: fclean all
 
-# -C to change the directory
 libft:
 	$(MAKE) -C lib/libft
-
-# *************************** MAKEFILE DEBUGGING ***************************** #
-
-print-%:
-	echo -e $* = $($*)
 
 .PHONY: all clean fclean re libft

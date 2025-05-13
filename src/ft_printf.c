@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzhang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 21:36:51 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/05 21:36:52 by fzhang           ###   ########.fr       */
+/*   Updated: 2025/05/13 21:25:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/ft_printf.h"
@@ -77,12 +77,20 @@ int	ft_printf(const char *string, ...)
 		temp = check(&string, args);
 		if(temp)
 		{
-			write(1, temp, ft_strlen((const char *)temp));
-			count += ft_strlen((const char *)temp);
-			string++;
+			if(temp[0] == '\0')
+			{
+				write(1, "\0", 1);
+                		count += 1;
+			}
+			else
+			{
+				write(1, temp, ft_strlen((const char *)temp));
+				count += ft_strlen((const char *)temp);
+			}
+			free(temp);
 		}
+		string++;
 	}
-	free(temp);
 	va_end(args);
 	return(count);
 }
