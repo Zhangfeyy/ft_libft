@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_charstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 12:45:42 by fzhang            #+#    #+#             */
-/*   Updated: 2025/05/04 10:58:34 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/05 21:49:53 by fzhang            #+#    #+#             */
+/*   Updated: 2025/05/12 15:01:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "../include/ft_printf.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char *ft_character(va_list args)
 {
-	size_t	i;
+	char *temp;
 
-	i = 0;
-	while (i < n && (s1[i] | s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
-		i++;
-	}
-	return (0);
+	temp = (char *)ft_calloc(2, 1);
+	if(!temp)
+		return (NULL);
+	temp[0] = (char)va_arg(args, int);//Use int due to default argument promotion
+	return (temp);
 }
-//  int main()
-// {
-// 	int check = ft_strncmp("test\200", "test\0", 6);
-// 	
-// }
+
+char *ft_string(va_list args)
+{
+	char *temp;
+	temp = va_arg(args, char *);//will the value change with the args?
+	return (temp);
+}

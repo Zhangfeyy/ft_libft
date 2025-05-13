@@ -1,40 +1,53 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fzhang <marvin@42.fr>                      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/05 21:36:31 by fzhang            #+#    #+#              #
-#    Updated: 2025/05/05 21:36:36 by fzhang           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-SRCS = ft_charstr.c ft_deci.c ft_hexa_pointer.c ft_printf.c ft_itoa_base.c
-OBJS = $(SRCS:.c=.o)
+SRCS = \
+	src/ft_printf.c \
+	src/ft_charstr.c \
+	src/ft_deci.c \
+	src/ft_hexa_pointer.c \
+	src/ft_itoa_base.c 
 
-
-# Add libraries
-LIBFT_DIR = libft
-DIRLIBFT = $(LIBFT_DIR)/libft.a
-LIBFT_INC = -I$(LIBFT_DIR)
+OBJS = $(SRCS:src/%.c=$(BUILD_DIR)/%.o)
+BUILD_DIR = build
 
 CC = cc
+AR = ar rcs
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror 
-NAME = testing
+# -I to look for header files in the dic path passed via I
+CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilib/libft
+NAME = libftprintf.a
 
-all: $(NAME)
+# default target when you use "make"
+all: libft $(NAME)
 
-$(NAME):$(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME)
+$(NAME): $(OBJS)
+	$(AR) $@ $^
 
+# create dictionaries as needed
+$(BUILD_DIR):
+	 mkdir -p $(BUILD_DIR)
+
+# $< refers to the input file (the .c file)
+# and $@ refers to the output file (the .o file).
+# CREATE A BUILD dictionary if it doesnt exit by order only dependency pipeline
+
+$(BUILD_DIR)/%.o: src/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 clean:
-	$(RM) $(OBJS)
+	$(MAKE) -C lib/libft fclean
+	$(RM) -r $(BUILD_DIR)
 
-fclean:clean
+fclean: clean
 	$(RM) $(NAME)
 
-re: fclean $(NAME)
+re: fclean all
 
-.PHONY:all clean fclean re
+# -C to change the directory
+libft:
+	$(MAKE) -C lib/libft
+
+# *************************** MAKEFILE DEBUGGING ***************************** #
+
+print-%:
+	echo -e $* = $($*)
+
+.PHONY: all clean fclean re libft

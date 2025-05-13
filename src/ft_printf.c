@@ -9,7 +9,7 @@
 /*   Updated: 2025/05/05 21:36:52 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 static char	*specify(const char *string, va_list args)
 {

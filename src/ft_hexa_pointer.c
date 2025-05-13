@@ -9,7 +9,7 @@
 /*   Updated: 2025/05/06 17:19:14 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 static char select_base(int num, int mark)
 {
@@ -61,9 +61,7 @@ char *ft_hexl(va_list args)
 	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
 	if(!temp)
 		return (NULL);
-	temp[0] = '0';
-	temp[1] = 'x';
-	*il = 2;
+	*il = 0;
 	convert_base(receiver, temp, il, 1);
 	return (temp);
 }
@@ -81,9 +79,7 @@ char *ft_hexu(va_list args)
 	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
 	if(!temp)
 		return (NULL);
-	temp[0] = '0';
-	temp[1] = 'X';
-	*iu = 2;
+	*iu = 0;
 	convert_base(receiver, temp, iu, 2);
 	return (temp);
 }

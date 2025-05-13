@@ -9,7 +9,7 @@
 /*   Updated: 2025/04/23 21:40:20 by fzhang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "../include/ft_printf.h"
 
 static char	*str_limit(void)
 {
@@ -31,7 +31,7 @@ static char	*str_limit(void)
 	return (ns);
 }
 
-static int	get_len(int n)
+static int	get_len_int(int n)
 {
 	int	i;
 
@@ -49,7 +49,20 @@ static int	get_len(int n)
 	return (i);
 }
 
-static void	convert(int n, char *str, int *i)
+static unsigned int	get_len_unsigned(unsigned int n)
+{
+	unsigned int	i;
+
+	i = 1;
+	while (n / 10 != 0)
+	{
+		i++;
+		n = n / 10;
+	}
+	return (i);
+}
+
+static void	convert(int n, char *str, unsigned int *i)
 {
 	if (n / 10 != 0)
 	{
@@ -64,16 +77,16 @@ static void	convert(int n, char *str, int *i)
 	}
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_int(int n)
 {
 	char	*str;
-	int		i;
+	unsigned int		i;
 
 	if (n == -2147483648)
 	{
 		return (str_limit());
 	}
-	str = (char *)malloc((get_len(n) + 1) * sizeof(char));
+	str = (char *)malloc((get_len_int(n) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -87,9 +100,17 @@ char	*ft_itoa(int n)
 	str[i] = '\0';
 	return (str);
 }
-// int main()
-// {
-// 	char *temp =ft_itoa(-104357);
-// 	int check = (int)temp[1];//48
-// 	check++;
-// }
+
+char	*ft_itoa_unsigned(unsigned int n)
+{
+	char	*str;
+	unsigned int		i;
+
+	str = (char *)malloc((get_len_unsigned(n) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	convert(n, str, &i);
+	str[i] = '\0';
+	return (str);
+}
