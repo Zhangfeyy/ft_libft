@@ -101,9 +101,9 @@ int	ft_printf(const char *string, ...)
 }
 //Mistake Note
 // I directly used string++ in check*(), however, i only passed the string by value, i cannot /
-// change the value of the string itself. So i can only operate the subvalue of a variable/
+// change the value of the string itself. So i can only operate the degraded calue of a variable/
 // in functions.
 // In C, ownership here means who can modify the value of the pointer 
 // and how it is passed around. It does not refer to the "main function" 
 // but rather to where the variable is declared and how it's passed between functions.
-// So printf actually operates the string
+// So printf actually operates the string...

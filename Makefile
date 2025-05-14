@@ -5,9 +5,7 @@ SRCS = \
 	src/ft_hexa_pointer.c \
 	src/ft_itoa_base.c 
 
-BUILD_DIR = build
-OBJ_DIR = $(BUILD_DIR)/obj
-TMP_DIR = $(BUILD_DIR)/tmp
+OBJ_DIR = build
 
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
@@ -18,21 +16,20 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilib/libft
 NAME = libftprintf.a
 
-# Default target
 all: libft $(NAME)
 
 # Build the final static library, including libft object files
-$(NAME): $(OBJS) | $(TMP_DIR)
-	cp lib/libft/libft.a $(TMP_DIR)/libft.a
-	cd $(TMP_DIR) && ar x libft.a
-	$(AR) $@ $^ $(TMP_DIR)/*.o
+# Remove the libft.a
+# ar command is used to manipulate archive files (like .a files, which are static libraries). 
+# The x option extracts the contents (object files) of libft.a.
+$(NAME): $(OBJS) | $(OBJ_DIR)
+	cp lib/libft/libft.a $(OBJ_DIR)/libft.a
+	cd $(OBJ_DIR) && ar x libft.a 
+	$(AR) $@ $^ $(OBJ_DIR)/*.o
 
 # Create build directories as needed
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-
-$(TMP_DIR):
-	mkdir -p $(TMP_DIR)
 
 # Compile each source file into the build/obj directory
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
@@ -40,7 +37,7 @@ $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 
 clean:
 	$(MAKE) -C lib/libft fclean
-	$(RM) -r $(BUILD_DIR)
+	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

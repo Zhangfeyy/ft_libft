@@ -1,14 +1,22 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I./include -I./lib/libft
-# link flag: lft
-LIBS = -L./libftprintf -L./lib/libft -lft
+SRCS = \
+	src/test1.c
+OBJS_DIR = build
+OBJS = $(SRCS:src/*.c = $(OBJS_DIR)/*.o)
+
+LIBS = ../libftprinft.a
+
 NAME = test
+CC = cc
+CFLAGS = -Wall -Wextra -Werror $(addprefix -I $(INCLUDES))
+# makefile cannot direcctly operate all the directories
+# so we can only use shell command to search for all the dirs
+INCLUDES = $(shell find .. -type d)
+# link flag: lft
 
-SRC = test1.C
-OBJ = $(SRC:.c=.o)
+all: $(LIBS) $(NAME) run
 
-all: $(NAME) run
+$(LIBS):
+	$(MAKE) -C $(LIBS)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
@@ -19,7 +27,7 @@ run: $(NAME)
 clean:
 	rm -f $(OBJ)
 
-fclean:
+fclean:clean
 	rm -f $(NAME)
 
 re: fclean all
