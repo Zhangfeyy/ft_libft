@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../include/ft_printf.h"
 
-static char select_base(int num, int mark)
+static char select_base(unsigned int num, int mark)
 {
 	if(num > 9 && mark == 1)
 		return('a' + (num - 10));
@@ -20,7 +20,7 @@ static char select_base(int num, int mark)
 	return('0' + num);
 }
 
-static void	convert_base(int receiver, char *temp, int *i, int mark)
+static void	convert_base(unsigned int receiver, char *temp, unsigned int *i, int mark)
 {
 	if(receiver/16 == 0)
 	{
@@ -34,10 +34,10 @@ static void	convert_base(int receiver, char *temp, int *i, int mark)
 		(*i)++;
 	}
 }
-static size_t len_hex(int receiver)
+static uintptr_t len_hex(unsigned int receiver)
 {
-	size_t size;
-	int temp;
+	uintptr_t size;
+	unsigned int temp;
 
 	temp = receiver;
 	size = 1;
@@ -52,18 +52,15 @@ static size_t len_hex(int receiver)
 char *ft_hexl(va_list args)
 {
 	char *temp;
-	int receiver;
-	int *il;
+	unsigned int receiver;
+	unsigned int il;
 
-	if(!(il = (int *)ft_calloc(1, sizeof(int))))
-		return (NULL);
-	receiver = va_arg(args, int);
+	receiver = va_arg(args, unsigned int);
 	temp = (char *)ft_calloc(len_hex(receiver) + 1, 1);
 	if(!temp)
 		return (NULL);
-	*il = 0;
-	convert_base(receiver, temp, il, 1);
-	free(il);
+	il = 0;
+	convert_base(receiver, temp, &il, 1);
 	return (temp);
 }
 
@@ -71,18 +68,15 @@ char *ft_hexl(va_list args)
 char *ft_hexu(va_list args)
 {
 	char *temp;
-	int receiver;
-	int *iu;
-	
-	if(!(iu = (int *)ft_calloc(1, sizeof(int))))
-		return (NULL);
-	receiver = va_arg(args, int);
+	unsigned int receiver;
+	unsigned int iu;
+
+	receiver = va_arg(args,unsigned int);
 	temp = (char *)ft_calloc(len_hex(receiver) + 1, 1);
 	if(!temp)
 		return (NULL);
-	*iu = 0;
-	convert_base(receiver, temp, iu, 2);
-	free(iu);
+	iu = 0;
+	convert_base(receiver, temp, &iu, 2);
 	return (temp);
 }
 
@@ -90,19 +84,19 @@ char *ft_void(va_list args)
 {
 	uintptr_t add;
 	char *temp;
-	int *i;
+	unsigned int i;
 
-	if(!(i = (int *)ft_calloc(1, sizeof(int))))
-		return (NULL);
 	add = (uintptr_t)va_arg(args, void *);
 	temp = (char *)ft_calloc(len_hex(add) + 3, 1);
 	if(!temp)
 		return (NULL);
-	*i = 0;
-	convert_base(add, temp, i, 1);
-	free(i);
+	temp[0] = '0';
+	temp[1] = 'x';
+	i = 2;
+	convert_base(add, temp, &i, 1);
 	return (temp);
 	
 }
 //NOTE
 //All the pointers need memory allocations
+//for counters constant variables are enough, also save one step for freeing at the end pf the function
