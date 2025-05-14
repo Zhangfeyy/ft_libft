@@ -9,7 +9,7 @@
 /*   Updated: 2025/05/13 21:28:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "../include/ft_printf.h"
 
 char *ft_character(va_list args)
 {

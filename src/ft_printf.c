@@ -82,10 +82,15 @@ int	ft_printf(const char *string, ...)
 				write(1, "\0", 1);
                 		count += 1;
 			}
-			else
+			else if(temp)
 			{
 				write(1, temp, ft_strlen((const char *)temp));
 				count += ft_strlen((const char *)temp);
+			}
+			else if(!temp)
+			{
+				write(1, "(NULL)", 6)
+				count++;
 			}
 			free(temp);
 		}

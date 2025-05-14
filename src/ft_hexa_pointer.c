@@ -58,11 +58,12 @@ char *ft_hexl(va_list args)
 	if(!(il = (int *)ft_calloc(1, sizeof(int))))
 		return (NULL);
 	receiver = va_arg(args, int);
-	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
+	temp = (char *)ft_calloc(len_hex(receiver) + 1, 1);
 	if(!temp)
 		return (NULL);
 	*il = 0;
 	convert_base(receiver, temp, il, 1);
+	free(il);
 	return (temp);
 }
 
@@ -76,11 +77,12 @@ char *ft_hexu(va_list args)
 	if(!(iu = (int *)ft_calloc(1, sizeof(int))))
 		return (NULL);
 	receiver = va_arg(args, int);
-	temp = (char *)ft_calloc(len_hex(receiver) + 3, 1);
+	temp = (char *)ft_calloc(len_hex(receiver) + 1, 1);
 	if(!temp)
 		return (NULL);
 	*iu = 0;
 	convert_base(receiver, temp, iu, 2);
+	free(iu);
 	return (temp);
 }
 
@@ -96,10 +98,9 @@ char *ft_void(va_list args)
 	temp = (char *)ft_calloc(len_hex(add) + 3, 1);
 	if(!temp)
 		return (NULL);
-	temp[0] = '0';
-	temp[1] = 'x';
-	*i = 2;
+	*i = 0;
 	convert_base(add, temp, i, 1);
+	free(i);
 	return (temp);
 	
 }
